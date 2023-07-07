@@ -30,3 +30,27 @@ VIEW `sector_w_sectorguide` AS
     FROM
         (`gl_sectors`
         JOIN `gl_sectorguide` ON ((`gl_sectors`.`sectorguideid` = `gl_sectorguide`.`sectorguideid`)))
+
+
+# subsector_w_sector
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `Sanny`@`%` 
+    SQL SECURITY DEFINER
+VIEW `subsector_w_sector` AS
+    SELECT 
+        `gl_subsectors`.`id` AS `ID`,
+        `gl_subsectors`.`sectorid` AS `Sector ID`,
+        `gl_subsectors`.`subsectorid` AS `Sub Sector ID`,
+        `gl_subsectors`.`subsectorcode` AS `Sub Sector Code`,
+        `gl_subsectors`.`subsectorname` AS `Sub Sector Name`,
+        `gl_sectors`.`sectorcode` AS `Sector Code`,
+        `gl_sectors`.`sectorname` AS `Sector Name`,
+        `gl_subsectors`.`officeid` AS `Office ID`,
+        `gl_offices`.`officedescription` AS `Office Description`
+    FROM
+        ((`gl_subsectors`
+        JOIN `gl_sectors` ON ((`gl_subsectors`.`sectorid` = `gl_sectors`.`id`)))
+        JOIN `gl_offices` ON ((`gl_subsectors`.`officeid` = `gl_offices`.`id`)))
+
