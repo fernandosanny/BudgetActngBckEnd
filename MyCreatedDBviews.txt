@@ -1,17 +1,21 @@
-# vi_sectorguide
+# sector_w_sectorguide
 
 CREATE 
     ALGORITHM = UNDEFINED 
     DEFINER = `Sanny`@`%` 
     SQL SECURITY DEFINER
-VIEW `vi_sectorguide` AS
+VIEW `sector_w_sectorguide` AS
     SELECT 
-        `gl_sectorguide`.`id` AS `id`,
-        CONCAT(`gl_sectorguide`.`sectorguideid`,
-                ' - ',
-                `gl_sectorguide`.`description`) AS `descriptionN`
+        `gl_sectors`.`id` AS `ID`,
+        `gl_sectors`.`sectorid` AS `Sector ID`,
+        `gl_sectors`.`sectorguideid` AS `Sector Guide ID`,
+        `gl_sectors`.`sectorcode` AS `Sector Code`,
+        `gl_sectors`.`sectorname` AS `Sector Name`,
+        `gl_sectors`.`sectordescription` AS `Description`,
+        `gl_sectorguide`.`description` AS `Sector Guide Description`
     FROM
-        `gl_sectorguide`
+        (`gl_sectors`
+        JOIN `gl_sectorguide` ON ((`gl_sectors`.`sectorguideid` = `gl_sectorguide`.`sectorguideid`)))
 
 # sector_w_sectorguide
 
